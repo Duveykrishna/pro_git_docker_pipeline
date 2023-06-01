@@ -19,6 +19,22 @@ pipeline {
 				sh 'sudo docker tag java-repo:$BUILD_TAG duveykrishna/pipeline-java:$BUILD_TAG'
 				}
 			}
+			stage("Docker Hub") {
+			steps {
+			withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_password_var')]) {
+				sh 'sudo docker login -u soft14308 -p ${docker_hub_password_var}'
+				sh 'sudo docker push soft14308/gitbash:$BUILD_TAG'
+				}
+			}
+
 		}
-	}
+		stage("QAT Testing") {
+			steps {
+				sh 'sudo docker rm -f $(sudo docker ps -a -q)'
+				sh 'sudo docker run -dit -p 8080:8080 soft14308/gitbash:$BUILD_TAG'
+				}
+			}
+		}
 }
+}
+
