@@ -18,8 +18,17 @@ pipeline{
 			stage (" Build the image "){
 				steps {
 					sh 'sudo docker build -t java-repo:$BUILD_TAG .'
-					sh 'sudo docker tag java-repo:$BUILD_TAG gouravaas/java-app:$BUILD_TAG'
+					sh 'sudo docker tag java-repo:$BUILD_TAG duveykrishna/java-app:$BUILD_TAG'
 					}
 				}
+                        stage ( " push the image "){
+				steps {
+					withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_password_var')]){
+					sh 'sudo docker login -u soft14308 -p $docker_hub_password_var'
+					sh 'sudo docker push soft14308/java-app:$BUILD_TAG'
+						}
+					}
+				}
+
 		}
 }
