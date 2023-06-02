@@ -18,7 +18,7 @@ pipeline{
 			stage (" Build the image "){
 				steps {
 					sh 'sudo docker build -t java-repo:$BUILD_TAG .'
-					sh 'sudo docker tag java-repo:$BUILD_TAG duveykrishna/java-app:$BUILD_TAG'
+					sh 'sudo docker tag java-repo:$BUILD_TAG soft14308/java-app:$BUILD_TAG'
 					}
 				}
                         stage ( " push the image "){
