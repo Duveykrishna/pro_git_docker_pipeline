@@ -53,5 +53,13 @@ pipeline{
 					}
 				}	
 			}
+			stage("Prod Env") {
+			steps {
+			 sshagent(['ubuntu']) {
+			    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.110.178.132 sudo docker rm -f $(sudo docker ps -a -q)'
+	                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.110.178.132 sudo docker run  -d  -p  49153:8080  soft14308/java-app:$BUILD_TAG"
+				}
+			}
 		}
+	}
 }
