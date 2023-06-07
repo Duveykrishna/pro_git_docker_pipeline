@@ -2,7 +2,7 @@ pipeline{
 	
 	agent {
 		label "ubuntu"
-		}
+	}
 		stages{
 			stage ("Pull the code from SCM"){
 				steps {
