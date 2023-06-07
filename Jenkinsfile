@@ -55,7 +55,7 @@ pipeline{
 			}
 			stage("Prod Env") {
 			steps {
-			 sshagent(['ubuntu']) {
+			 sshagent(['jenkins']) {
 			    sh "ssh -o StrictHostKeyChecking=no ubuntu@15.207.16.235 sudo docker run  -d  -p  49153:8080  soft14308/java-app:$BUILD_TAG"
 				}
 			}
